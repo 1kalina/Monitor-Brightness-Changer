@@ -39,10 +39,10 @@ Open a new terminal window and run `brightness`.
 
 ---
 
-### Building `ddcutil` from Source
+## Building `ddcutil` from Source
 Skip Step 1.  
 
-#### Install Build Tools and Dependencies
+### Install Build Tools and Dependencies
 For Debian-based systems:  
 `sudo apt install build-essential libusb-1.0-0-dev libdrm-dev pkg-config i2c-tools`  
 
@@ -52,19 +52,19 @@ For Fedora-based systems:
 For Arch-based systems:  
 `sudo pacman -S base-devel libusb libdrm i2c-tools`  
 
-#### Clone the `ddcutil` Repository
+### Clone the `ddcutil` Repository
 `git clone https://github.com/rockowitz/ddcutil.git`  
 `cd ddcutil`  
 
-#### Configure and Build
+### Configure and Build
 `./configure`  
 `make`  
 `sudo make install`  
 
-#### Verify Installation
+### Verify Installation
 `ddcutil --version`  
 
-#### Post-Installation Setup
+### Post-Installation Setup
 Load kernel modules:  
 `sudo modprobe i2c-dev`  
 `sudo modprobe drm`  
@@ -73,7 +73,7 @@ Ensure I2C access:
 `ls /dev/i2c-*`  
 `sudo chmod a+rw /dev/i2c-*`  
 
-#### Test
+### Test
 `sudo ddcutil detect`  
 
 Return to Step 2.  
