@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+import subprocess
+
+def get_monitor_ids():
+    """Get connected monitor IDs using ddcutil."""
+    try:
+        result = subprocess.run(
+            ["sudo", "ddcutil", "detect"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        monitors = []
+        for line in result.stdout.split("\n"):
+            if line.startswith("Display "):
+                monitors.append(int(line.split()[1]))
+        return monitors
+    except Exception as e:
+        print(f"Error detecting monitors: {e}")
+        return []
+
+def set_brightness(monitor_id, brightness):
+    """Set the brightness of a specific monitor."""
+    try:
+        subprocess.run(
+            ["sudo", "ddcutil", "-d", str(monitor_id), "setvcp", "10", str(brightness)],
+            check=True
+        )
+        print(f"Brightness of monitor {monitor_id} set to {brightness}.")
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to set brightness for monitor {monitor_id}: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+def main():
+    monitors = get_monitor_ids()
+    if not monitors:
+        print("No monitors detected or DDC/CI not enabled.")
+        return
+
+    print(f"Detected monitors: {monitors}")
+    try:
+        brightness = int(input("Enter brightness level (0-100): "))
+        if not (0 <= brightness <= 100):
+            raise ValueError("Brightness level must be between 0 and 100.")
+    except ValueError as e:
+        print(f"Invalid input: {e}")
+        return
+
+    for monitor_id in monitors:
+        set_brightness(monitor_id, brightness)
+
+if __name__ == "__main__":
+    main()
+
