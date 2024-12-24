@@ -1,6 +1,8 @@
 # Monitor-Brightness-Changer
 After transitioning to Linux, I encountered difficulties adjusting the brightness on my dual-monitor setup using existing solutions. This script is a straightforward tool designed to manage monitor brightness effortlessly using `ddcutil`. While tailored for personal use, it might also be helpful for others facing similar challenges.
 
+And maybe the best solution for multi-monitor setups, at least for me
+
 ## Installation
 
 ### Pre-Install Step
