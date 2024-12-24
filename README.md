@@ -42,7 +42,6 @@ Open a new terminal window and run `brightness`.
 ---
 
 ## Building `ddcutil` from Source
-Skip Step 1.  
 
 ### Install Build Tools and Dependencies
 For Debian-based systems:  
