@@ -1,77 +1,79 @@
-# Monitor-brightness-changer
-After transitioning to Linux, I encountered difficulties with adjusting brightness on my dual-monitor setup using existing solutions. This script is a straightforward tool designed to manage monitor brightness effortlessly, using `ddcutil`. It's tailored for personal use but might be helpful for others facing similar challenges
+# Monitor-Brightness-Changer
+After transitioning to Linux, I encountered difficulties adjusting the brightness on my dual-monitor setup using existing solutions. This script is a straightforward tool designed to manage monitor brightness effortlessly using `ddcutil`. While tailored for personal use, it might also be helpful for others facing similar challenges.
 
 ## Installation
 
 ### Pre-Install Step
-Proof Python installation
-`python3 --version`
+Verify Python installation:  
+`python3 --version`  
 
-if no: `sudo <package manager> install Python3.12.3`
+If Python is not installed:  
+`sudo <package manager> install python3.12.3`  
 
-Check
-`python3 --version`
+Verify the installation:  
+`python3 --version`  
 
 ### Step 1
-`sudo <package manager> install ddcutil`
+Install `ddcutil`:  
+`sudo <package manager> install ddcutil`  
 
 ### Step 2
-- Download file `brightness` from the repository
-
-- Open download directory in terminal \
-`cd /home/<username>/Downloads`
+- Download the `brightness` file from the repository.  
+- Open the download directory in the terminal:  
+  `cd /home/<username>/Downloads`  
 
 ### Step 3
-- Make the file executable \
-`chmod +x brightness`
+- Make the file executable:  
+  `chmod +x brightness`  
+- Move it to a directory included in `PATH`:  
+  `sudo mv brightness /usr/local/bin/`  
+- Verify `PATH`:  
+  `echo $PATH`  
 
-- Move to directory which is part of PATH \
-`sudo mv brightness /usr/local/bin/`
-
-- Verifying PATH `echo $PATH`
-
-if no `/usr/local/bin/` in $PATH: \
-`export PATH=$PATH:/usr/local/bin` \
-`source ~/.bashrc`
+If `/usr/local/bin/` is not in `$PATH`:  
+`export PATH=$PATH:/usr/local/bin`  
+`source ~/.bashrc`  
 
 ### Run
-Open new Terminal window and run `brightness`
+Open a new terminal window and run `brightness`.  
 
+---
 
 ### Building `ddcutil` from Source
-Skip Step 1
+Skip Step 1.  
+
 #### Install Build Tools and Dependencies
-Debian based: \
-`sudo apt install build-essential libusb-1.0-0-dev libdrm-dev pkg-config i2c-tools`
+For Debian-based systems:  
+`sudo apt install build-essential libusb-1.0-0-dev libdrm-dev pkg-config i2c-tools`  
 
-Fedora based: \
-`sudo dnf install make gcc libusb1-devel libdrm-devel pkgconfig i2c-tools`
+For Fedora-based systems:  
+`sudo dnf install make gcc libusb1-devel libdrm-devel pkgconfig i2c-tools`  
 
-Arch: \
-`sudo pacman -S base-devel libusb libdrm i2c-tools`
+For Arch-based systems:  
+`sudo pacman -S base-devel libusb libdrm i2c-tools`  
 
-#### Clone the `ddcutil` repository
-`git clone https://github.com/rockowitz/ddcutil.git` \
-`cd ddcutil`
+#### Clone the `ddcutil` Repository
+`git clone https://github.com/rockowitz/ddcutil.git`  
+`cd ddcutil`  
 
 #### Configure and Build
-`./configure` \
-`make` \
-`sudo make install`
+`./configure`  
+`make`  
+`sudo make install`  
 
-#### Verify installation
-`ddcutil --version`
+#### Verify Installation
+`ddcutil --version`  
 
 #### Post-Installation Setup
-Load Kernel Modules: \
-`sudo modprobe i2c-dev` \
-`sudo modprobe drm`
+Load kernel modules:  
+`sudo modprobe i2c-dev`  
+`sudo modprobe drm`  
 
-Ensure I2C Access \
-`ls /dev/i2c-*` \
-`sudo chmod a+rw /dev/i2c-*`
+Ensure I2C access:  
+`ls /dev/i2c-*`  
+`sudo chmod a+rw /dev/i2c-*`  
 
 #### Test
-`sudo ddcutil detect`
+`sudo ddcutil detect`  
 
-Return to Step 2
+Return to Step 2.  
