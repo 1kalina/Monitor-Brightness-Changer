@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import subprocess
 
 def get_monitor_ids():
@@ -34,22 +35,29 @@ def set_brightness(monitor_id, brightness):
         print(f"Unexpected error: {e}")
 
 def main():
+    parser = argparse.ArgumentParser(description="Set monitor brightness using ddcutil.")
+    parser.add_argument("-b", "--brightness", type=int, required=True, help="Brightness level (0-100)")
+    parser.add_argument("-m", "--monitor", type=int, help="Monitor ID (optional, applies to all if not specified)")
+
+    args = parser.parse_args()
+
+    if not (0 <= args.brightness <= 100):
+        print("Error: Brightness must be between 0 and 100.")
+        return
+
     monitors = get_monitor_ids()
     if not monitors:
         print("No monitors detected or DDC/CI not enabled.")
         return
 
-    print(f"Detected monitors: {monitors}")
-    try:
-        brightness = int(input("Enter brightness level (0-100): "))
-        if not (0 <= brightness <= 100):
-            raise ValueError("Brightness level must be between 0 and 100.")
-    except ValueError as e:
-        print(f"Invalid input: {e}")
-        return
-
-    for monitor_id in monitors:
-        set_brightness(monitor_id, brightness)
+    if args.monitor is not None:
+        if args.monitor in monitors:
+            set_brightness(args.monitor, args.brightness)
+        else:
+            print(f"Error: Monitor ID {args.monitor} not detected.")
+    else:
+        for monitor_id in monitors:
+            set_brightness(monitor_id, args.brightness)
 
 if __name__ == "__main__":
     main()
